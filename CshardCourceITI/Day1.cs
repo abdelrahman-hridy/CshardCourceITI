@@ -1,4 +1,6 @@
 ﻿
+using CshardCourceITI;
+
 namespace D1CSharp
 {
     internal class Day1
@@ -85,7 +87,20 @@ namespace D1CSharp
         }
         static void Main(string[] args)
         {
-            Day2.Traks(3,5);
+            Console.WriteLine("sum: " + calc.Sum(1, 2));
+            Console.WriteLine("sum: " + calc.Sum(3, 4));
+            Console.WriteLine("sum: " + calc.Sum(5, 6));
+            Console.WriteLine("sum: " + calc.Sum(7, 8));
+
+            Question q1 = new Question("Q1", "What is 2 + 2", 2);
+            q1.Show();
+
+            Console.WriteLine();
+
+            MCQquestion mcq = new MCQquestion("MCQ Question", "Which  is the programming language?", 3, new string[] { "HTML", "C++", "CSS", "XML" });
+            mcq.Show();
+
+            Console.ReadKey();
         }
     }
 }
