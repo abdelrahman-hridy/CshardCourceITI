@@ -1,4 +1,5 @@
 ﻿
+using System.Drawing;
 using CshardCourceITI;
 
 namespace D1CSharp
@@ -87,20 +88,64 @@ namespace D1CSharp
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("sum: " + calc.Sum(1, 2));
-            Console.WriteLine("sum: " + calc.Sum(3, 4));
-            Console.WriteLine("sum: " + calc.Sum(5, 6));
-            Console.WriteLine("sum: " + calc.Sum(7, 8));
+            Company company = new Company { Name = "Tech Corp" };
+            Department it = new Department { Name = "IT" };
+            Department hr = new Department { Name = "HR" };
+            company.departments.Add(it);
+            company.departments.Add(hr);
 
-            Question q1 = new Question("Q1", "What is 2 + 2", 2);
-            q1.Show();
+            Employee e1 = new Employee("Alice", 28);
+            Employee e2 = new Employee("Bob", 30);
+            it.employees.Add(e1);
+            hr.employees.Add(e2);
 
-            Console.WriteLine();
+            Instructor inst1 = new Instructor("Dr. Smith", 45);
+            Instructor inst2 = new Instructor("Prof. John", 50);
 
-            MCQquestion mcq = new MCQquestion("MCQ Question", "Which  is the programming language?", 3, new string[] { "HTML", "C++", "CSS", "XML" });
-            mcq.Show();
+            Course c1 = new Course("C# Basics", CourseLevel.Beginner);
+            Course c2 = new Course("OOP Advanced", CourseLevel.Advanced);
 
-            Console.ReadKey();
+            inst1.TeachCourse(c1);
+            inst2.TeachCourse(c2);
+
+            Student s1 = new Student("Charlie", 20, 1);
+            Student s2 = new Student("Diana", 22, 2);
+
+            s1.RegisterCourse(c1);
+            s1.RegisterCourse(c2);
+            s2.RegisterCourse(c1);
+
+            s1.Grades.Add(new Grade(90));
+            s1.Grades.Add(new Grade(85));
+            s2.Grades.Add(new Grade(75));
+
+            Console.WriteLine("\n=== Students Report ===");
+            foreach (var s in new[] { s1, s2 })
+            {
+                Console.WriteLine($"Student {s.Name} (ID={s.Id}):");
+                foreach (var c in s.Courses)
+                    Console.WriteLine($"   Course: {c.Name} ({c.Level})");
+                Console.WriteLine($"   Total Grade = {s.TotalGrade().Value}");
+            }
+
+            Console.WriteLine("\n=== Instructors Report ===");
+            foreach (var inst in new[] { inst1, inst2 })
+            {
+                Console.WriteLine($"Instructor {inst.Name} (ID={inst.Id}):");
+                foreach (var c in inst.CoursesTaught)
+                    Console.WriteLine($"   Teaching: {c.Name}");
+            }
+
+            Console.WriteLine("\n=== Departments Report ===");
+            foreach (var dept in company.departments)
+            {
+                Console.WriteLine($"Department {dept.Name}, Employees: {dept.employees.Count}");
+            }
+
+            Console.WriteLine("\n=== Car Demo ===");
+            Car car = new Car { Make = "Toyota" };
+            car.Engine.Model = "V8";
+            car.Start();
         }
     }
 }
